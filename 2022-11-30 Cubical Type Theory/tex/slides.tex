@@ -1,0 +1,160 @@
+\documentclass[aspectratio=169,usepdftitle=true]{beamer}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{microtype}
+\DisableLigatures{encoding = *, family = * }
+\usepackage[english]{babel}
+\usepackage{lipsum}
+\usetheme[progressbar=foot]{metropolis}
+%\usepackage{lmodern}
+
+%\usepackage[default,type1,semibold]{sourcesanspro}
+%\usepackage[sfdefault,semibold]{cabin}
+%\usepackage[sfdefault]{AlegreyaSans}
+\usepackage[sfdefault,lf,t]{carlito} % Looks nice! The only potential contender to lmodern!
+
+\usepackage{mathpazo}
+\usepackage{mathtools,calc} % For making colon symbol with the width of an equivalence rel.
+%\usepackage[backend=bibtex8,style=alphabetic]{biblatex}
+%\addbibresource{cutt-primer.bib}
+
+%\usepackage[tabular,lining]{montserrat}
+%\usepackage{InriaSans}
+%\usepackage{domitian}
+%\def\sbfamily{\fontfamily{Montserrat-TLF}\fontseries{sb}\selectfont}
+
+%\usepackage{FiraSans}
+%\firaextralight
+% Titlepage Colors
+%\setbeamercolor{title}{parent=normal text}
+%\setbeamercolor{subtitle}{parent=normal text}
+%\setbeamercolor{institute}{parent=normal text,fg=gray}
+%\setbeamercolor{license}{parent=normal text,fg=gray}
+%\setbeamercolor{tag}{parent=normal text,fg=gray}
+%\setbeamercolor{date}{parent=normal text,fg=gray}
+
+% Content
+%\setbeamercolor{frametitle}{}
+%\setbeamerfont{frametitle}{size=\Large,series=\mdseries}
+
+% Titlepage Fonts
+%\setbeamerfont{title}{size=\fontsize{24}{24},series=\sbfamily}
+%\setbeamerfont{subtitle}{size=\fontsize{10}{12},series=\mdseries}
+%\setbeamerfont{tag}{size=\fontsize{8}{10},series=\mdseries}
+%\setbeamerfont{institute}{size=\fontsize{8}{10},series=\mdseries}
+%\setbeamerfont{date}{size=\fontsize{8}{10},series=\mdseries}
+%\setbeamerfont{section title}{size=\0fontsize{19}{19}}
+%f\setbeamerfont{license}{size=\fontsize{6}{8},series=\mdseries}
+
+% Navigation Symbols (Broken in this theme?)
+%\setbeamertemplate{navigation symbols}{
+%\insertframenavigationsymbol%
+%}
+
+\usepackage{xcolor}
+\usepackage{mdframed}
+\newmdenv[%
+	innerleftmargin=4pt,
+	innertopmargin=4pt,
+	innerrightmargin=4pt,
+	innerbottommargin=4pt,
+	backgroundcolor=yellow!10,
+]{boxybox}%
+\usepackage{tabularx}
+
+% ----------------------------------------------------
+
+\title{Cubical Type Theory}
+\subtitle{An Informal Introduction}
+%\institute{Should I put "University of Cambridge" here?}
+\date{November 30, 2022}
+\author{Aaron Yeoh Cruz}
+
+\newlength{\mywidth}
+\newlength{\myheight}
+\setlength{\mywidth}{85mm}
+\setlength{\myheight}{112mm}
+
+% ----------------------------------------------------
+
+\newcommand{\defcolon}{\mathrel{\mathmakebox[\widthof{$\equiv$}]{:}}}
+\newcommand{\entails}{\vdash}
+\newcommand{\pathcom}{\mathbin{\vcenter{\hbox{\text{\tiny{$\bullet$}}}}}}
+
+\newcommand{\interrule}{\centerline{\rule{\textwidth}{0.4pt}}}
+\newcommand{\cleanalign}[2]{
+	{#1
+	\(\displaystyle
+		#2
+	\)
+	\par}
+}
+
+% ----------------------------------------------------
+
+% TikZ settings:
+
+\usetikzlibrary{calc,positioning}
+% Color of shapes used:
+\definecolor{color_fill_default}{HTML}{d1d2e8}
+\definecolor{color_shaded_default}{HTML}{888bc3}
+
+\definecolor{color_heliotrope}{HTML}{dc85ff}
+\definecolor{baby_powder}{HTML}{fdfffc}
+\definecolor{color_flame}{HTML}{ee5622}
+\definecolor{color_electric_purple}{HTML}{ba0aff}
+
+\definecolor{color_cerulean_crayola}{HTML}{00a7e1}
+\definecolor{color_blue}{HTML}{0410f1}
+\definecolor{color_black_1b_2022}{HTML}{1b2022}
+\definecolor{color_black_fogra}{HTML}{080708}
+\definecolor{color_mbgreen}{HTML}{75dbcd}
+\definecolor{color_msgreen}{HTML}{94da97}
+\newcommand\drawsquare[1]{+(-#1,-#1) rectangle +(#1,#1)}
+
+% ----------------------------------------------------
+
+\setbeamercolor{background canvas}{bg=baby_powder}
+\setbeamercolor{frametitle}{bg=color_black_1b_2022,fg=baby_powder}
+\setbeamercolor{normal text}{fg=color_black_fogra}
+\setbeamercolor{alerted text}{fg=color_flame}
+
+
+\usepackage{array, booktabs, longtable}
+\usepackage{graphicx}
+\usepackage{colortbl}
+\newcommand{\timelinebullet}{\color{color_black_fogra}\makebox[0pt]{\textbullet}\hskip-0.45pt\color{color_black_fogra}\vrule width 1pt\hspace{\labelsep}}
+
+\usepackage{mathpartir}
+
+\usepackage{soul}
+\makeatletter
+\let\HL\hl
+\renewcommand\hl{%
+  \let\set@color\beamerorig@set@color
+  \let\reset@color\beamerorig@reset@color
+  \HL}
+\makeatother
+\newcommand{\hlmathy}[2]{\text{\sethlcolor{#1}\hl{$#2$}}}
+
+\usepackage[backend=bibtex8,style=alphabetic]{biblatex}
+\addbibresource{cutt-primer.bib}
+
+\begin{document}
+% Start slide numbering at zero.
+\addtocounter{framenumber}{-1}
+\begin{frame}[plain]
+	\titlepage
+\end{frame}
+
+\include{frames0.tex}
+\include{frames1.tex}
+\include{frames2.tex}
+\begin{frame}[shrink=50]{Bibliography}
+	\nocite{*}
+	\printbibliography[heading=none]
+\end{frame}
+\addtocounter{framenumber}{1}
+\end{document}
+

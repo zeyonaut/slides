@@ -1,0 +1,717 @@
+\begin{frame}{The (De Morgan) Interval}
+	\centering
+	\uncover<2->{
+	We define an \alert{exotype} $\mathbb{I}$, such that:
+	
+	\cleanalign{\centering}{
+		\begin{gathered}
+			0, 1 : \mathbb{I}
+		\end{gathered}
+	}
+	}
+
+	\uncover<3->{and equip it with \textbf{connections} \uncover<4->{and a \textbf{reversal}.}}%
+
+	\interrule
+
+	\vspace{\baselineskip}
+
+	\begin{columns}[onlytextwidth]
+		\begin{column}{0.5\textwidth}
+			\uncover<3->{
+			\cleanalign{\centering}{
+				\begin{gathered}
+					r \lor s : \mathbb{I}\\
+					r \land s : \mathbb{I}
+				\end{gathered}
+			}
+			\centering
+			
+			\vspace{\baselineskip}
+
+			for any $r, s : \mathbb{I}$
+			}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\uncover<4->{
+			\cleanalign{\centering}{
+				\begin{gathered}
+					\neg t : \mathbb{I}
+				\end{gathered}
+			}
+			\centering
+			
+			\vspace{\baselineskip}
+
+			for any $t : \mathbb{I}$
+			}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{The Interval, Morally}
+	A \textbf{dimension term} $r : \mathbb{I}$ can be thought of as an point $r \in [0, 1]$.
+
+	\begin{itemize}
+		\uncover<2->{
+			\item \textbf{Max connection.} $r \lor s $ represents $\mathsf{max}(r, s)$
+			\item \textbf{Min connection.} $r \land s$ represents $\mathsf{min}(r, s)$
+		}
+		\uncover<3->{
+			\item \textbf{Reversal.} $\neg r \approx 1 - r$
+		}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Points, Lines, Squares, Cubes}
+	\centering
+	In any context $\Gamma$,
+	we have $n$ \textbf{dimension variables} $i : \mathbb{I} \in \Gamma$.
+	
+	\uncover<2->{
+	A term $\Gamma \entails x : A$ looks like:
+	}
+	\vspace*{\baselineskip}
+
+	\begin{columns}[t,onlytextwidth]
+		\uncover<2->{
+		\begin{column}{0.333\textwidth}
+			\centering
+			\begin{tikzpicture}[scale=1,black,x=1pt,y=1pt,every node/.style={scale=0.6}]
+				\useasboundingbox (-32, -4) rectangle (80, 80);
+				\fill[color_shaded_default]
+					(24, 48) circle(2pt)
+					;
+			\end{tikzpicture}
+		\end{column}
+		}
+		\uncover<3->{
+		\begin{column}{0.333\textwidth}
+			\centering
+			\begin{tikzpicture}[scale=1,black,x=1pt,y=1pt,every node/.style={scale=0.6}]
+				\useasboundingbox (-32, -4) rectangle (80, 80);
+				% Points
+				\coordinate (TL) at (0, 48);
+				\coordinate (TR) at (48, 48);
+		
+				\coordinate (ZI) at ($(TL) + (0, 16)$);
+				\coordinate (UI) at ($(TR) + (0, 16)$);
+		
+				% Square background
+				\draw[line width=0,fill=color_fill_default]
+				(TL) --
+				(TR);
+				
+				% Interval
+				\draw (ZI) -- (UI);
+				\draw ($(ZI)+(0,-2)$) -- ($(ZI)+(0,2)$) node[above] {$0$};
+				\draw ($(UI)+(0,-2)$) -- ($(UI)+(0,2)$) node[above] {$1$};
+				\draw ($(ZI)!0.5!(UI) + (0,2)$) node[above] {$i$}
+				;
+				
+				% Grays
+				\draw[line width=1.5pt, color_shaded_default]
+					(TL) -- (TR)
+					;
+			\end{tikzpicture}
+		\end{column}
+		}
+		\uncover<4->{
+		\begin{column}{0.333\textwidth}
+			\centering
+			\begin{tikzpicture}[scale=1,black,x=1pt,y=1pt,every node/.style={scale=0.6}]
+				\useasboundingbox (-32, -4) rectangle (80, 80);
+				%\draw (-32, -4) rectangle (52, 80);
+				% Points
+				\coordinate (TL) at (0, 48);
+				\coordinate (TR) at (48, 48);
+				\coordinate (BR) at (48, 0);
+				\coordinate (BL) at (0, 0);
+		
+				\coordinate (ZI) at ($(TL) + (0, 16)$);
+				\coordinate (UI) at ($(TR) + (0, 16)$);
+				\coordinate (ZJ) at ($(TL) + (-16, 0)$);
+				\coordinate (UJ) at ($(BL) + (-16, 0)$);
+				\coordinate (ZJR) at ($(TR) + (16, 0)$);
+				\coordinate (UJR) at ($(BR) + (16, 0)$);
+		
+				% Square background
+				\draw[line width=0,fill=color_fill_default]
+				(TL) --
+				(TR) --
+				(BR) --
+				(BL) --
+				cycle;
+				
+				% Interval
+				\draw (ZI) -- (UI);
+				\draw ($(ZI)+(0,-2)$) -- ($(ZI)+(0,2)$) node[above] {$0$};
+				\draw ($(UI)+(0,-2)$) -- ($(UI)+(0,2)$) node[above] {$1$};
+				\draw ($(ZI)!0.5!(UI) + (0,2)$) node[above] {$i$}
+				;
+				\draw (ZJ) -- (UJ);
+				\draw ($(ZJ)+(2, 0)$) -- ($(ZJ)+(-2, 0)$) node[left] {$0$};
+				\draw ($(UJ)+(2,0)$) -- ($(UJ)+(-2, 0)$) node[left] {$1$};
+				\draw ($(ZJ)!0.5!(UJ) + (-2, 0)$) node[left] {$j$};
+				
+				% Grays
+				\draw[line width=1.5pt, color_shaded_default]
+					(TL) -- (TR) -- (BR) -- (BL) -- cycle
+					;
+			\end{tikzpicture}
+		\end{column}
+		}
+	\end{columns}
+	\vspace*{\baselineskip}
+	\uncover<5->{
+	A \textbf{line} $i : I \entails x : A$ or $\lambda i.\, x :\mathbb{I} \to A$ \emph{witnesses} the equality of its endpoints.
+	}
+\end{frame}
+
+\begin{frame}{Cofibrant Propositions}
+	\begin{center}
+	In any context $\Gamma$,
+	we have a class $\mathbb{F}$ of
+	
+	\textbf{cofibrant propositions}, or \textbf{cofibrations}.
+	
+	\uncover<2->{We define $\mathbb{F}$ to be the \textbf{face lattice}.}
+	\interrule
+	\begin{columns}[onlytextwidth]
+		\uncover<3->{
+		\begin{column}{0.333\textwidth}
+			\centering
+			\begin{gather*}
+				0_\mathbb{F}\\
+				1_\mathbb{F}
+			\end{gather*}
+			\phantom{$\mathbb{I}$}
+		\end{column}
+		}
+		\uncover<4->{
+		\begin{column}{0.333\textwidth}
+			\centering
+			\begin{gather*}
+				(i = 0)\\
+				(i = 1)
+			\end{gather*}
+			for any $i : \mathbb{I}$ in $\Gamma$
+		\end{column}
+		}
+		\uncover<5->{
+		\begin{column}{0.333\textwidth}
+			\centering
+			\begin{gather*}
+				\varphi \lor \psi\\
+				\varphi \land \psi
+			\end{gather*}
+			for any $\varphi, \psi : \mathbb{F}$
+		\end{column}
+		}
+	\end{columns}
+	\end{center}
+\end{frame}
+
+\begin{frame}{Partial Elements}
+	\centering
+	If $\Gamma \entails \varphi : \mathbb{F}$ is a cofibration, \uncover<2->{then $\Gamma, \varphi$ is an \textbf{restricted context}.}
+	
+	\uncover<3->{We say that $\Gamma, \varphi \entails x : A$ is a \textbf{partial element} of $A$ (on the \alert{extent} of $\varphi$).}
+	\vspace*{\baselineskip}
+	\begin{columns}[onlytextwidth]
+		\uncover<4->{
+		\begin{column}{0.5\textwidth}
+			\centering
+			\begin{tikzpicture}[scale=1,black,x=1pt,y=1pt,every node/.style={scale=0.6}]
+				\useasboundingbox (-48, -4) rectangle (80, 80);
+				%\draw (-48, -4) rectangle (80, 80);
+				% Points
+				\coordinate (TL) at (0, 48);
+				\coordinate (TR) at (48, 48);
+				\coordinate (BR) at (48, 0);
+				\coordinate (BL) at (0, 0);
+		
+				\coordinate (ZI) at ($(TL) + (0, 16)$);
+				\coordinate (UI) at ($(TR) + (0, 16)$);
+				\coordinate (ZJ) at ($(TL) + (-16, 0)$);
+				\coordinate (UJ) at ($(BL) + (-16, 0)$);
+				\coordinate (ZJR) at ($(TR) + (16, 0)$);
+				\coordinate (UJR) at ($(BR) + (16, 0)$);
+		
+				% Square background
+				\draw[line width=0,fill=color_fill_default]
+				(TL) --
+				(TR) --
+				(BR) --
+				(BL) --
+				cycle;
+				
+				% Interval
+				\draw (ZI) -- (UI);
+				\draw ($(ZI)+(0,-2)$) -- ($(ZI)+(0,2)$) node[above] {$0$};
+				\draw ($(UI)+(0,-2)$) -- ($(UI)+(0,2)$) node[above] {$1$};
+				\draw ($(ZI)!0.5!(UI) + (0,2)$) node[above] {$i$}
+				;
+				\draw (ZJ) -- (UJ);
+				\draw ($(ZJ)+(2, 0)$) -- ($(ZJ)+(-2, 0)$) node[left] {$0$};
+				\draw ($(UJ)+(2,0)$) -- ($(UJ)+(-2, 0)$) node[left] {$1$};
+				\draw ($(ZJ)!0.5!(UJ) + (-2, 0)$) node[left] {$j$}
+				node[left=16pt,style={scale=1.25}] {$0_{\mathbb{F}}$};
+				
+				% Grays
+				\draw[line width=1.5pt, color_shaded_default]
+					(TL) -- (TR) -- (BR) -- (BL) -- cycle
+					;
+			\end{tikzpicture}
+		\end{column}
+		}
+		\uncover<5->{
+		\begin{column}{0.5\textwidth}
+			\centering
+			\begin{tikzpicture}[scale=1,black,x=1pt,y=1pt,every node/.style={scale=0.6}]
+				\useasboundingbox (-48, -4) rectangle (80, 80);
+				%\draw (-48, -4) rectangle (80, 80);
+				% Points
+				\coordinate (TL) at (0, 48);
+				\coordinate (TR) at (48, 48);
+				\coordinate (BR) at (48, 0);
+				\coordinate (BL) at (0, 0);
+		
+				\coordinate (ZI) at ($(TL) + (0, 16)$);
+				\coordinate (UI) at ($(TR) + (0, 16)$);
+				\coordinate (ZJ) at ($(TL) + (-16, 0)$);
+				\coordinate (UJ) at ($(BL) + (-16, 0)$);
+				\coordinate (ZJR) at ($(TR) + (16, 0)$);
+				\coordinate (UJR) at ($(BR) + (16, 0)$);
+		
+				% Square background
+				\draw[line width=0,fill=color_heliotrope]
+				(TL) --
+				(TR) --
+				(BR) --
+				(BL) --
+				cycle;
+				
+				% Interval
+				\draw (ZI) -- (UI);
+				\draw ($(ZI)+(0,-2)$) -- ($(ZI)+(0,2)$) node[above] {$0$};
+				\draw ($(UI)+(0,-2)$) -- ($(UI)+(0,2)$) node[above] {$1$};
+				\draw ($(ZI)!0.5!(UI) + (0,2)$) node[above] {$i$}
+				;
+				\draw (ZJ) -- (UJ);
+				\draw ($(ZJ)+(2, 0)$) -- ($(ZJ)+(-2, 0)$) node[left] {$0$};
+				\draw ($(UJ)+(2,0)$) -- ($(UJ)+(-2, 0)$) node[left] {$1$};
+				\draw ($(ZJ)!0.5!(UJ) + (-2, 0)$) node[left] {$j$}
+				node[left=16pt,style={scale=1.25}] {$1_{\mathbb{F}}$};
+				
+				% Dashed projections
+				\draw[dashed]
+					(ZI) -- (TL)
+					(UI) -- (TR)
+					(ZJ) -- (TL)
+					(UJ) -- (BL)
+					;
+		
+				% Highlights
+				\draw[line width=1.5pt, color_electric_purple]
+					(BL) -- (BR) -- (TR) -- (TL) -- cycle;
+				\fill[color_electric_purple]
+					(TL) circle(2pt)
+					(TR) circle(2pt)
+					(BL) circle(2pt)
+					(BR) circle(2pt)
+					;
+				\draw[color_flame, line width=1.5pt]
+					(ZI) -- (UI)
+					;
+				\fill[color_flame]
+					(ZI) circle(2pt)
+					(UI) circle(2pt)
+					;
+				\draw[color_cerulean_crayola, line width=1.5pt]
+					(ZJ) -- (UJ)
+					;
+				\fill[color_cerulean_crayola]
+					(ZJ) circle(2pt)
+					(UJ) circle(2pt)
+					;
+			\end{tikzpicture}
+		\end{column}
+		}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Example | Cofibrations}
+	\centering
+	\begin{columns}
+		% (i = 0)
+		\uncover<2->{
+		\begin{column}{0.25\textwidth}
+			\centering
+			\begin{tikzpicture}[scale=1,black,x=1pt,y=1pt,every node/.style={scale=0.6}]
+				\useasboundingbox (-32, -4) rectangle (80, 96);
+				% Points
+				\coordinate (TL) at (0, 48);
+				\coordinate (TR) at (48, 48);
+				\coordinate (BR) at (48, 0);
+				\coordinate (BL) at (0, 0);
+		
+				\coordinate (ZI) at ($(TL) + (0, 16)$);
+				\coordinate (UI) at ($(TR) + (0, 16)$);
+				\coordinate (ZJ) at ($(TL) + (-16, 0)$);
+				\coordinate (UJ) at ($(BL) + (-16, 0)$);
+				\coordinate (ZJR) at ($(TR) + (16, 0)$);
+				\coordinate (UJR) at ($(BR) + (16, 0)$);
+		
+				% Square background
+				\draw[line width=0,fill=color_fill_default]
+				(TL) --
+				(TR) --
+				(BR) --
+				(BL) --
+				cycle;
+				
+				% Interval
+				\draw (ZI) -- (UI);
+				\draw ($(ZI)+(0,-2)$) -- ($(ZI)+(0,2)$) node[above] {$0$};
+				\draw ($(UI)+(0,-2)$) -- ($(UI)+(0,2)$) node[above] {$1$};
+				\draw ($(ZI)!0.5!(UI) + (0,2)$) node[above] {$i$}
+					node[above=16pt,style={scale=1.25}] {$(i = 0)$}
+				;
+				\draw (ZJ) -- (UJ);
+				\draw ($(ZJ)+(2, 0)$) -- ($(ZJ)+(-2, 0)$) node[left] {$0$};
+				\draw ($(UJ)+(2,0)$) -- ($(UJ)+(-2, 0)$) node[left] {$1$};
+				\draw ($(ZJ)!0.5!(UJ) + (-2, 0)$) node[left] {$j$};
+				
+				% Dashed projections
+				\draw[dashed]
+					(ZJ) -- (TL)
+					(UJ) -- (BL)
+					(ZI) -- (TL)
+					;
+		
+				% Grays
+				\draw[line width=1.5pt, color_shaded_default]
+					(TL) -- (TR) -- (BR) -- (BL) -- cycle
+					;
+		
+				% Highlights
+				\draw[line width=1.5pt, magenta]
+					(TL) -- (BL);
+				\fill[magenta]
+					(TL) circle(2pt)
+					(BL) circle(2pt)
+					;
+				\draw[color_flame, line width=1.5pt]
+					(ZJ) -- (UJ)
+					;
+				\fill[color_flame]
+					(ZI) circle(2pt)
+					;
+					
+				\draw[color_cerulean_crayola, line width=1.5pt]
+					(ZJ) -- (UJ)
+					;
+				\fill[color_cerulean_crayola]
+					(ZJ) circle(2pt)
+					(UJ) circle(2pt)
+					;
+			\end{tikzpicture}
+		\end{column}
+		}
+		% (j = 1)
+		\uncover<3->{
+		\begin{column}{0.25\textwidth}
+			\centering
+			\begin{tikzpicture}[scale=1,black,x=1pt,y=1pt,every node/.style={scale=0.6}]
+				\useasboundingbox (-32, -4) rectangle (80, 96);
+				% Points
+				\coordinate (TL) at (0, 48);
+				\coordinate (TR) at (48, 48);
+				\coordinate (BR) at (48, 0);
+				\coordinate (BL) at (0, 0);
+		
+				\coordinate (ZI) at ($(TL) + (0, 16)$);
+				\coordinate (UI) at ($(TR) + (0, 16)$);
+				\coordinate (ZJ) at ($(TL) + (-16, 0)$);
+				\coordinate (UJ) at ($(BL) + (-16, 0)$);
+				\coordinate (ZJR) at ($(TR) + (16, 0)$);
+				\coordinate (UJR) at ($(BR) + (16, 0)$);
+		
+				% Square background
+				\draw[line width=0,fill=color_fill_default]
+				(TL) --
+				(TR) --
+				(BR) --
+				(BL) --
+				cycle;
+				
+				% Interval
+				\draw (ZI) -- (UI);
+				\draw ($(ZI)+(0,-2)$) -- ($(ZI)+(0,2)$) node[above] {$0$};
+				\draw ($(UI)+(0,-2)$) -- ($(UI)+(0,2)$) node[above] {$1$};
+				\draw ($(ZI)!0.5!(UI) + (0,2)$) node[above] {$i$}
+					node[above=16pt,style={scale=1.25}] {$(j = 1)$}
+				;
+				\draw (ZJ) -- (UJ);
+				\draw ($(ZJ)+(2, 0)$) -- ($(ZJ)+(-2, 0)$) node[left] {$0$};
+				\draw ($(UJ)+(2,0)$) -- ($(UJ)+(-2, 0)$) node[left] {$1$};
+				\draw ($(ZJ)!0.5!(UJ) + (-2, 0)$) node[left] {$j$};
+				
+				% Dashed projections
+				\draw[dashed]
+					(ZI) -- (TL)
+					(UI) -- (TR)
+					(UJ) -- (BL)
+					;
+		
+				% Grays
+				\draw[line width=1.5pt, color_shaded_default]
+					(TL) -- (TR) -- (BR) -- (BL) -- cycle
+					;
+		
+				% Highlights
+				\draw[color_blue, line width=1.5pt]
+					(BL) -- (BR);
+				\fill[color_blue]
+					(BL) circle(2pt)
+					(BR) circle(2pt)
+					;
+				\draw[color_flame, line width=1.5pt]
+					(ZI) -- (UI)
+					;
+				\fill[color_flame]
+					(ZI) circle(2pt)
+					(UI) circle(2pt)
+					;
+				\fill[color_cerulean_crayola]
+					(UJ) circle(2pt)
+					;
+			\end{tikzpicture}
+		\end{column}
+		}
+		% (i = 0) OR (j = 1)
+		\uncover<4->{
+		\begin{column}{0.25\textwidth}
+			\centering
+			\begin{tikzpicture}[scale=1,black,x=1pt,y=1pt,every node/.style={scale=0.6}]
+				\useasboundingbox (-32, -4) rectangle (80, 96);
+				% Points
+				\coordinate (TL) at (0, 48);
+				\coordinate (TR) at (48, 48);
+				\coordinate (BR) at (48, 0);
+				\coordinate (BL) at (0, 0);
+		
+				\coordinate (ZI) at ($(TL) + (0, 16)$);
+				\coordinate (UI) at ($(TR) + (0, 16)$);
+				\coordinate (ZJ) at ($(TL) + (-16, 0)$);
+				\coordinate (UJ) at ($(BL) + (-16, 0)$);
+				\coordinate (ZJR) at ($(TR) + (16, 0)$);
+				\coordinate (UJR) at ($(BR) + (16, 0)$);
+		
+				% Square background
+				\draw[line width=0,fill=color_fill_default]
+				(TL) --
+				(TR) --
+				(BR) --
+				(BL) --
+				cycle;
+				
+				% Interval
+				\draw (ZI) -- (UI);
+				\draw ($(ZI)+(0,-2)$) -- ($(ZI)+(0,2)$) node[above] {$0$};
+				\draw ($(UI)+(0,-2)$) -- ($(UI)+(0,2)$) node[above] {$1$};
+				\draw ($(ZI)!0.5!(UI) + (0,2)$) node[above] {$i$}
+					node[above=16pt,style={scale=1.25}] {$(i = 0) \lor (j = 1)$}
+				;
+				\draw (ZJ) -- (UJ);
+				\draw ($(ZJ)+(2, 0)$) -- ($(ZJ)+(-2, 0)$) node[left] {$0$};
+				\draw ($(UJ)+(2,0)$) -- ($(UJ)+(-2, 0)$) node[left] {$1$};
+				\draw ($(ZJ)!0.5!(UJ) + (-2, 0)$) node[left] {$j$};
+				
+				% Dashed projections
+				\draw[dashed]
+					(ZJ) -- (TL)
+					(UJ) -- (BL)
+					(ZI) -- (TL)
+					(UI) -- (TR)
+					;
+		
+				% Grays
+				\draw[line width=1.5pt, color_shaded_default]
+					(TL) -- (TR) -- (BR) -- (BL) -- cycle
+					;
+		
+				% Highlights
+				\draw[line width=1.5pt, color_flame!33] (ZI) -- (UI);
+				\draw[line width=1.5pt, color_cerulean_crayola!33] (ZJ) -- (UJ);
+				\fill[color_flame!33]
+					(UI) circle(2pt)
+					;
+				\fill[color_cerulean_crayola!33]
+					(ZJ) circle(2pt)
+					;
+
+				\draw[line width=1.5pt, magenta]
+					(TL) -- (BL);
+				\fill[magenta]
+					(TL) circle(2pt)
+					;
+				\draw[line width=1.5pt, color_blue]
+					(BL) -- (BR);
+				\fill[color_blue]
+					(BR) circle(2pt)
+					;
+				%\begin{scope}
+				%	\clip ($(BL) + (4, 4)$) -- ($(BL) + (-4, -4)$) -- ($(BL) + (-4, 4)$) -- cycle;
+				%	\fill[magenta] (BL) circle(2pt);
+				%\end{scope}
+				%\begin{scope}
+				%	\clip ($(BL) + (4, 4)$) -- ($(BL) + (-4, -4)$) -- ($(BL) + (4, -4)$) -- cycle;
+				%	\fill[color_blue] (BL) circle(2pt);
+				%\end{scope}
+				\fill[color_electric_purple] (BL) circle(2pt);
+				
+				\fill[color_flame]
+					(ZI) circle(2pt)
+					;
+				\fill[color_cerulean_crayola]
+					(UJ) circle(2pt)
+					;
+			\end{tikzpicture}
+		\end{column}
+		}
+		% (i = 0) AND (j = 1)
+		\uncover<5->{
+		\begin{column}{0.25\textwidth}
+			\centering
+			\begin{tikzpicture}[scale=1,black,x=1pt,y=1pt,every node/.style={scale=0.6}]
+				\useasboundingbox (-32, -4) rectangle (80, 96);
+				% Points
+				\coordinate (TL) at (0, 48);
+				\coordinate (TR) at (48, 48);
+				\coordinate (BR) at (48, 0);
+				\coordinate (BL) at (0, 0);
+		
+				\coordinate (ZI) at ($(TL) + (0, 16)$);
+				\coordinate (UI) at ($(TR) + (0, 16)$);
+				\coordinate (ZJ) at ($(TL) + (-16, 0)$);
+				\coordinate (UJ) at ($(BL) + (-16, 0)$);
+				\coordinate (ZJR) at ($(TR) + (16, 0)$);
+				\coordinate (UJR) at ($(BR) + (16, 0)$);
+		
+				% Square background
+				\draw[line width=0,fill=color_fill_default]
+				(TL) --
+				(TR) --
+				(BR) --
+				(BL) --
+				cycle;
+				
+				% Interval
+				\draw (ZI) -- (UI);
+				\draw ($(ZI)+(0,-2)$) -- ($(ZI)+(0,2)$) node[above] {$0$};
+				\draw ($(UI)+(0,-2)$) -- ($(UI)+(0,2)$) node[above] {$1$};
+				\draw ($(ZI)!0.5!(UI) + (0,2)$) node[above] {$i$}
+					node[above=16pt,style={scale=1.25}] {$(i = 0) \land (j = 1)$}
+				;
+				\draw (ZJ) -- (UJ);
+				\draw ($(ZJ)+(2, 0)$) -- ($(ZJ)+(-2, 0)$) node[left] {$0$};
+				\draw ($(UJ)+(2,0)$) -- ($(UJ)+(-2, 0)$) node[left] {$1$};
+				\draw ($(ZJ)!0.5!(UJ) + (-2, 0)$) node[left] {$j$};
+				
+				% Dashed projections
+				\draw[dashed]
+					(ZI) -- (TL)
+					(UJ) -- (BL)
+					;
+		
+				% Grays
+				\draw[line width=1.5pt, color_shaded_default]
+					(TL) -- (TR) -- (BR) -- (BL) -- cycle
+					;
+		
+				% Highlights
+				\fill[color_electric_purple]
+					(BL) circle(2pt)
+					;
+				\fill[color_flame]
+					(ZI) circle(2pt)
+					;
+				\fill[color_cerulean_crayola]
+					(UJ) circle(2pt);
+			\end{tikzpicture}
+		\end{column}
+		}
+	\end{columns}
+\end{frame}
+
+% Partial Element notation due to 1802.01170
+\begin{frame}{Example | Partial Element}
+	\centering
+	
+	We can define a \textbf{partial element} by pattern matching on a cofibration.
+
+	\interrule
+
+	\uncover<2->{
+	For any $i : \mathbb{I} \vdash x, y : A$,
+	}
+	\uncover<3->{
+	\begin{equation*}
+		i : \mathbb{I}, \only<4->{\underbrace}{(i = 0) \lor (i = 1)}\only<4->{_\text{sometimes written $\partial i$}} \entails [(i = 0) \mapsto x, (i = 1) \mapsto y] : A \vphantom{[\underbrace{(i = 0) \lor (i = 1)}_\text{sometimes written $\partial i$}]}
+	\end{equation*}
+	}
+\end{frame}
+
+\begin{frame}{Path Types}
+	\cleanalign{\centering}{
+		\begin{gathered}
+		x =_A y
+		\end{gathered}
+	}
+
+	\vspace{\baselineskip}
+
+	\interrule
+
+	\begin{center}
+	\uncover<2->{A path $p : x =_A y$ is a \alert{function} from $\mathbb{I}$ to $A$ \dots}
+
+	\uncover<3->{\dots with \textbf{endpoints} $p\, \textbf{0} \equiv x$ and $p\, \textbf{1} \equiv y$.}
+	\end{center}
+\end{frame}
+
+\begin{frame}{Example | Reflexivity, Symmetry}
+	\centering
+	\uncover<2->{Any self-respecting `equality' ought to be \alert{reflexive}, \alert{symmetric}, and \alert{transitive}.}
+	\interrule
+	\begin{columns}[onlytextwidth]
+		\begin{column}{0.5\textwidth}
+			\centering
+			\begin{align*}
+				\uncover<3->{\mathsf{refl} &\defcolon x = x}\\
+				\uncover<4->{\mathsf{refl} &\equiv \lambda i.\ \uncover<5->{x}}
+			\end{align*}
+			\uncover<3->{for any $x : A$}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\centering
+			\begin{align*}
+				\uncover<3->{\mathsf{sym} &\defcolon (x = y) \to (y = x)}\\
+				\uncover<6->{\mathsf{sym} &\equiv \lambda p.\ \uncover<7->{\lambda i.\ p \, (\neg i)}}
+			\end{align*}
+			\uncover<3->{for any $x, y : A$}
+		\end{column}
+	\end{columns}
+	\vspace*{\medskipamount}
+\end{frame}
+
+\begin{frame}{Demonstration | Function Extensionality}
+	\centering
+	Cubical type theories let us \alert{prove} the principle of \textbf{function extensionality}:
+	\begin{equation*}
+		\mathsf{funext'} \defcolon \prod_{f : A \to B}\,\prod_{g : A \to B}\,\only<2->{\overbrace}{\Biggl(\prod_{x : A}\,f\,x = g\,x\Biggr)}\only<2->{^\text{pointwise equal}} \to {\only<3->{\underbrace}{(f = g)}\only<3->{_\text{equal!}}} \vphantom{\overbrace{\Biggl(\prod_{x : A}\,f\,x = g\,x\Biggr)}^\text{pointwise equal} \to \underbrace{(f = g)}_\text{equal!}}
+	\end{equation*}
+	\uncover<4->{Let's prove this in \alert{Agda}!}
+\end{frame}
